@@ -37,8 +37,8 @@ public class Main {
 
         System.out.print("Podaj kategorie pytań: ");
         int kategoria = scanner.nextInt();
-        if(kategoria == 16) {
-            for (File file: files) {
+        if (kategoria == 16) {
+            for (File file : files) {
                 zadania.addAll(wczytaj(file));
             }
         } else {
@@ -75,9 +75,9 @@ public class Main {
         System.out.println(zadanie.getPytanie());
         wypiszOdpowiedzi(zadanie);
         System.out.print("Twoja odpowiedz: ");
-        String odpowiedz = scanner.nextLine();
+        int odpowiedz = scanner.nextInt();
 
-        if (dobraOdpowiedz.equalsIgnoreCase(odpowiedz)) {
+        if (dobraOdpowiedz.equalsIgnoreCase(zadanie.getOdpowiedzi().get(odpowiedz))) {
             System.out.println("Dobra odpowiedz!\n");
             return 1;
         } else {
@@ -88,12 +88,15 @@ public class Main {
 
     private static void wypiszOdpowiedzi(Zadanie zadanie) {
         Collections.shuffle(zadanie.getOdpowiedzi());
-        for (String odpowiedz : zadanie.getOdpowiedzi()) {
-            System.out.println("    " + odpowiedz);
+        //po wymieszaniu, gdy zapyta drugi raz o to samo zadanie bedzie problem z poprawna odpowiedzia
+        List<String> odpowiedzi = zadanie.getOdpowiedzi();
+        for (int i = 0; i < odpowiedzi.size(); i++) {
+            System.out.println("   " + i + "] " + odpowiedzi.get(i));
         }
     }
 
     /*
+            COLLECTIONS.SHUFFLE
     private static void wypiszOdpowiedzi(Zadanie zadanie) {
         int[] tab = new int[zadanie.getOdpowiedzi().size()];
         for (int i = 0; i < tab.length; i++) {
