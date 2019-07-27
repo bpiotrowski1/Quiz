@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         int liczbaPunktow = 0;
         List<Zadanie> zadania = wybierzKategorie();
-        Map<String, Boolean> kolaRatunkowe = new HashMap<String, Boolean>();
+        Map<String, Boolean> kolaRatunkowe = new HashMap<>();
         kolaRatunkowe.put("Telefon do przyjaciela", true);
 
         for (int i = 0; i < 10; i++) {
@@ -30,21 +30,19 @@ public class Main {
 
         System.out.println("Dostepne kategorie:");
         File[] files = new File("src/main/resources").listFiles();
-        for (final File value : files) {
-            System.out.println(value.getName().substring(0, value.getName().lastIndexOf(".")));
+        for (int i = 0; i < files.length; i++) {
+            System.out.println(i + ") " + files[i].getName().substring(0, files[i].getName().lastIndexOf(".")));
         }
-        System.out.println("Wszystkie\n");
+        System.out.println("16) Wszystkie\n");
 
         System.out.print("Podaj kategorie pytań: ");
-        String kategoria = scanner.nextLine();
-        if(kategoria.equalsIgnoreCase("wszystkie")) {
+        int kategoria = scanner.nextInt();
+        if(kategoria == 16) {
             for (File file: files) {
                 zadania.addAll(wczytaj(file));
             }
         } else {
-            plikDoWczytania += kategoria + ".txt";
-            plik = new File(plikDoWczytania);
-            zadania = wczytaj(plik);
+            zadania = wczytaj(files[kategoria]);
         }
 
         return zadania;
