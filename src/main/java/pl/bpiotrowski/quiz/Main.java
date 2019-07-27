@@ -8,15 +8,22 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         String plikDoWczytania = "src/main/resources/";
         Scanner scanner = new Scanner(System.in);
-        List<Zadanie> zadania;
+        List<Zadanie> zadania = new ArrayList<Zadanie>();
         File plik;
         int liczbaPunktow = 0;
 
         System.out.print("Podaj kategorie pytań: ");
-        plikDoWczytania += scanner.nextLine() + ".txt";
-
-        plik = new File(plikDoWczytania);
-        zadania = wczytaj(plik);
+        String kategoria = scanner.nextLine();
+        if(kategoria.equalsIgnoreCase("wszystkie")) {
+            File[] files = new File("src/main/resources").listFiles();
+            for (File file: files) {
+                zadania.addAll(wczytaj(file));
+            }
+        } else {
+            plikDoWczytania += kategoria + ".txt";
+            plik = new File(plikDoWczytania);
+            zadania = wczytaj(plik);
+        }
 
         for (int i = 0; i < 10; i++) {
             liczbaPunktow += zadajPytanie(zadania);
