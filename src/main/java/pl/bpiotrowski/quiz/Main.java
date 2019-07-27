@@ -6,16 +6,38 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
+        int liczbaPunktow = 0;
+        List<Zadanie> zadania = wybierzKategorie();
+        Map<String, Boolean> kolaRatunkowe = new HashMap<String, Boolean>();
+        kolaRatunkowe.put("Telefon do przyjaciela", true);
+
+        for (int i = 0; i < 10; i++) {
+            wypiszKolaRatunkowe(kolaRatunkowe);
+            liczbaPunktow += zadajPytanie(zadania);
+        }
+        System.out.println("Udzieliles " + liczbaPunktow + " poprawne odpowiedzi!");
+    }
+
+    public static void wypiszKolaRatunkowe(Map<String, Boolean> kolaRatunkowe) {
+        kolaRatunkowe.forEach((key, value) -> System.out.println(key + ": " + value));
+    }
+
+    private static List<Zadanie> wybierzKategorie() throws FileNotFoundException {
+        List<Zadanie> zadania = new ArrayList<Zadanie>();
         String plikDoWczytania = "src/main/resources/";
         Scanner scanner = new Scanner(System.in);
-        List<Zadanie> zadania = new ArrayList<Zadanie>();
         File plik;
-        int liczbaPunktow = 0;
+
+        System.out.println("Dostepne kategorie:");
+        File[] files = new File("src/main/resources").listFiles();
+        for (final File value : files) {
+            System.out.println(value.getName().substring(0, value.getName().lastIndexOf(".")));
+        }
+        System.out.println("Wszystkie\n");
 
         System.out.print("Podaj kategorie pytań: ");
         String kategoria = scanner.nextLine();
         if(kategoria.equalsIgnoreCase("wszystkie")) {
-            File[] files = new File("src/main/resources").listFiles();
             for (File file: files) {
                 zadania.addAll(wczytaj(file));
             }
@@ -25,10 +47,7 @@ public class Main {
             zadania = wczytaj(plik);
         }
 
-        for (int i = 0; i < 10; i++) {
-            liczbaPunktow += zadajPytanie(zadania);
-        }
-        System.out.println("Udzieliles " + liczbaPunktow + " poprawne odpowiedzi!");
+        return zadania;
     }
 
     private static List<Zadanie> wczytaj(File plik) throws FileNotFoundException {
