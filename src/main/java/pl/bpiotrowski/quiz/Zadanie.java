@@ -1,4 +1,4 @@
-package pl.bpiotrowski;
+package pl.bpiotrowski.quiz;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +10,8 @@ public class Zadanie {
     @Getter @Setter String pytanie;
     @Getter List<String> odpowiedzi;
 
-    Zadanie() {
-        this.odpowiedzi = new ArrayList<String>();
+    Zadanie(int initialCapacity) {
+        this.odpowiedzi = new ArrayList<String>(initialCapacity);
     }
 
     void dodajOdpowiedz(String odpowiedz) {
