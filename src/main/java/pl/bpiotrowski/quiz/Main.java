@@ -2,10 +2,7 @@ package pl.bpiotrowski.quiz;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
@@ -48,8 +45,7 @@ public class Main {
     private static int zadajPytanie(List<Zadanie> zadania) {
         Random rand = new Random();
         Scanner scanner = new Scanner(System.in);
-        int wylosowanePytanie = rand.nextInt(zadania.size());
-        Zadanie zadanie = zadania.get(wylosowanePytanie);
+        Zadanie zadanie = zadania.get(rand.nextInt(zadania.size()));
         String dobraOdpowiedz = zadanie.getOdpowiedzi().get(0);
 
         System.out.println(zadanie.getPytanie());
@@ -57,7 +53,7 @@ public class Main {
         System.out.print("Twoja odpowiedz: ");
         String odpowiedz = scanner.nextLine();
 
-        if(dobraOdpowiedz.equalsIgnoreCase(odpowiedz)) {
+        if (dobraOdpowiedz.equalsIgnoreCase(odpowiedz)) {
             System.out.println("Dobra odpowiedz!\n");
             return 1;
         } else {
@@ -66,6 +62,14 @@ public class Main {
         }
     }
 
+    private static void wypiszOdpowiedzi(Zadanie zadanie) {
+        Collections.shuffle(zadanie.getOdpowiedzi());
+        for (String odpowiedz : zadanie.getOdpowiedzi()) {
+            System.out.println("    " + odpowiedz);
+        }
+    }
+
+    /*
     private static void wypiszOdpowiedzi(Zadanie zadanie) {
         int[] tab = new int[zadanie.getOdpowiedzi().size()];
         for (int i = 0; i < tab.length; i++) {
@@ -90,4 +94,5 @@ public class Main {
         }
         return true;
     }
+         */
 }
