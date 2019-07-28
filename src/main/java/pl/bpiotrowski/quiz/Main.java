@@ -18,15 +18,13 @@ public class Main {
         System.out.println("Udzieliles " + liczbaPunktow + " poprawne odpowiedzi!");
     }
 
-    public static void wypiszKolaRatunkowe(Map<String, Boolean> kolaRatunkowe) {
+    private static void wypiszKolaRatunkowe(Map<String, Boolean> kolaRatunkowe) {
         kolaRatunkowe.forEach((key, value) -> System.out.println(key + ": " + value));
     }
 
     private static List<Zadanie> wybierzKategorie() throws FileNotFoundException {
-        List<Zadanie> zadania = new ArrayList<Zadanie>();
-        String plikDoWczytania = "src/main/resources/";
+        List<Zadanie> zadania = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        File plik;
 
         System.out.println("Dostepne kategorie:");
         File[] files = new File("src/main/resources").listFiles();
@@ -49,7 +47,7 @@ public class Main {
     }
 
     private static List<Zadanie> wczytaj(File plik) throws FileNotFoundException {
-        List<Zadanie> zadania = new ArrayList<Zadanie>();
+        List<Zadanie> zadania = new ArrayList<>();
         Scanner scanner = new Scanner(plik);
 
         while (scanner.hasNextLine()) {
